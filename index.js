@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser')
 const winston = require('winston');
+const fs = require('fs');
 
 
 const port = process.env.PORT || 3000;
@@ -23,12 +24,18 @@ app.get('/test', (req, res) => {
     res.send('alive');
 })
 
-app.post('/log', function (req, res) {
+app.post('/log', (req, res) => {
     if(req.body.log) {
         logger.info(new Date() + '\t' + req.body.log);
     }
     res.send('ok');
 })
-  
+
+app.get('/data', (req, res) => {
+    fs.readFile('data.log', (err, data) => {
+        res.send(data.toString());
+    });
+})
+
 app.listen(3000);
 console.log('Listening on http://localhost:' + port);
