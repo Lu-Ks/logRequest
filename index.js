@@ -26,7 +26,8 @@ app.get('/test', (req, res) => {
 
 app.post('/log', (req, res) => {
     if(req.body.log) {
-        logger.info(new Date() + '\t' + req.body.log);
+        logger.info(new Date() + ' ' + req.body.log);
+        console.log(new Date() + ' ' + req.body.log);
     }
     res.send('ok');
 })
